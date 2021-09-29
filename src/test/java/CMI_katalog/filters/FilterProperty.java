@@ -7,6 +7,7 @@ import page_objects.TestBase;
 
 import java.util.function.BooleanSupplier;
 
+import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.By.xpath;
