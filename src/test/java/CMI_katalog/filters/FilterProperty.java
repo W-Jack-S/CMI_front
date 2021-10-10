@@ -1,5 +1,7 @@
 package CMI_katalog.filters;
 
+import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import page_objects.TestBase;
 import java.util.function.BooleanSupplier;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.By.xpath;
@@ -67,6 +70,14 @@ public class FilterProperty extends TestBase {
                 "            Выбран\n" +
                 "            1 элемент\n" +
                 "         ']")));
+        given()
+                .baseUri("https://api.stable.int.tsum.com")
+                .basePath("/v2/catalog/search?page=1&per-page=30&checkAccess=1")
+                .contentType(ContentType.JSON)
+                .when().get()
+                .then()
+                .statusCode(200)
+                .body("[0].brand_name", equalTo("Brunello Cucinelli"));
     }
 
     @Test
